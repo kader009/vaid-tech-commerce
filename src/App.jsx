@@ -3,6 +3,9 @@ import { Toaster } from 'react-hot-toast';
 import LoginPage from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import RegisterPage from './pages/Register';
+import Allproduct from './pages/Allproduct';
+import Layout from './Layout/Layout';
+import DashboardLayout from './Layout/DashboardLayout';
 
 function App() {
   // const PrivateRoute = ({ children }) => {
@@ -13,24 +16,31 @@ function App() {
   return (
     <>
       <BrowserRouter>
-    {/* toast */}
-    <Toaster/>
-      <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route
-          path="/dashboard"
-          element={
-            // <PrivateRoute>
-              <Dashboard />
-            // </PrivateRoute>
-          }
-        />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </BrowserRouter>
+        <Toaster />
 
+        <Routes>
+          {/* Public routes */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+
+          {/* Routes with Navbar/Footer */}
+          <Route element={<Layout />}>
+          <Route path="/dashboard" element={<DashboardLayout />}/>
+            <Route path="/" element={<Navigate to="/login" />} />
+            <Route
+              path="/dashboard"
+              element={
+                // <PrivateRoute>
+                  <Dashboard />
+                // </PrivateRoute>
+              }
+            />
+          </Route>
+          <Route path='/dashboard/all-products' element={<Allproduct/>}/>
+
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
